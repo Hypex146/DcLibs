@@ -1,0 +1,8 @@
+name: DcLibs
+version: 0.0.1
+author: Hypex
+contributors: []
+main: DcLibs
+depend: []
+commands:
+permissions:
