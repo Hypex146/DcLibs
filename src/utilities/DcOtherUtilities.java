@@ -9,21 +9,35 @@ import org.bukkit.entity.EntityType;
 
 public abstract class DcOtherUtilities {
 	
-	public static Predicate<Entity> createPredicate(List<EntityType> filter) {
+	// Predicate<Entity> createPredicate
+	// include
+	public static Predicate<Entity> createPredicate(List<EntityType> filter, Boolean contain) {
+		Predicate<Entity> predicate;
 		if (filter == null) {
-			return null;
-		}
-		Predicate<Entity> predicate = new Predicate<Entity>() {
-			@Override
-			public boolean test(Entity t) {
-				if (filter.contains(t.getType())) {
-					return true;
-				} else {
-					return false;
+			predicate = new Predicate<Entity>() {
+				@Override
+				public boolean test(Entity t) {
+					return !contain;
 				}
-			}
-		};
+			};
+		} else {
+			predicate = new Predicate<Entity>() {
+				@Override
+				public boolean test(Entity t) {
+					if (filter.contains(t.getType())) {
+						return contain;
+					} else {
+						return contain;
+					}
+				}
+			};
+		}
 		return predicate;
+	}
+	
+	//
+	public static Predicate<Entity> createPredicate(List<EntityType> filter) {
+		return createPredicate(filter, true);
 	}
 
 }

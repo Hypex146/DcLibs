@@ -10,6 +10,8 @@ import org.bukkit.entity.Entity;
 
 public abstract class DcEntityUtilities {
 	
+	// Collection<Entity> getNearbyEntities
+	// xyz + limit with direction
 	public static Collection<Entity> getNearbyEntities(Location loc, 
 			Double x, Double y, Double z, Predicate<Entity> filter, Integer limit, Boolean reverse) {
 		Collection<Entity> entities = loc.getWorld().getNearbyEntities(loc, x, y, z, filter);
@@ -31,26 +33,29 @@ public abstract class DcEntityUtilities {
 		return entities;
 	}
 	
+	// xyz + limit
 	public static Collection<Entity> getNearbyEntities(Location loc, 
 			Double x, Double y, Double z, Predicate<Entity> filter, Integer limit) {
 		return getNearbyEntities(loc, x, y, z, filter, limit, false);
 	}
 	
+	// sphere
 	public static Collection<Entity> getNearbyEntities(Location loc, 
 			Double dist, Predicate<Entity> filter) {
 		Collection<Entity> entities = loc.getWorld().getNearbyEntities(loc, dist, dist, dist, filter);
 		return entities;
 	}
 	
+	// sphere + limit
 	public static Collection<Entity> getNearbyEntities(Location loc, 
 			Double dist, Predicate<Entity> filter, Integer limit) {
-		return getNearbyEntities(loc, dist, dist, dist, filter, limit);
+		return getNearbyEntities(loc, dist, dist, dist, filter, limit, false);
 	}
 	
+	// sphere + limit with direction
 	public static Collection<Entity> getNearbyEntities(Location loc, 
 			Double dist, Predicate<Entity> filter, Integer limit, Boolean reverse) {
 		return getNearbyEntities(loc, dist, dist, dist, filter, limit, reverse);
 	}
 	
-
 }
