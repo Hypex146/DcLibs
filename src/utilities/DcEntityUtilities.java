@@ -1,5 +1,6 @@
 package utilities;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.TreeMap;
 import java.util.function.Predicate;
@@ -97,6 +98,69 @@ public abstract class DcEntityUtilities {
 			LivingEntity observed, Double max_dist, 
 			double cos_detect_angle) {
 		return inSight(observer, observed, max_dist, cos_detect_angle, null);
+	}
+	
+	
+	// Collection<LivingEntity> getObservers
+	// 1. material_filter + entity_filter + limit + reverse
+	public static Collection<LivingEntity> getObservers(
+			LivingEntity observed, Double max_dist, Double cos_detect_angle, 
+			Predicate<Entity> entity_filter, 
+			Predicate<Material> material_filter, 
+			Integer limit, Boolean reverse) {
+		TreeMap<Double, LivingEntity> observers_tree = 
+				new TreeMap<Double, LivingEntity>();
+		for (Entity nearby_entity : getNearbyEntities(
+				observed.getLocation(), max_dist, entity_filter)) {
+			if ( !(nearby_entity instanceof LivingEntity) ) { 
+				continue; 
+			}
+			if ( inSight((LivingEntity) nearby_entity, 
+					observed, max_dist, cos_detect_angle, material_filter) ) {
+				observers_tree.put(nearby_entity.getLocation().distance(
+						observed.getLocation()), (LivingEntity) nearby_entity);
+			}
+		}
+		if (limit < 0) {
+			return observers_tree.values();
+		}
+		Collection<LivingEntity> observers = new ArrayList<LivingEntity>();
+		for (int i = 0; i < observers_tree.size(); i++) {
+			if (i >= limit) {
+				break;
+			}
+			if (reverse) {
+				observers.add(observers_tree.pollLastEntry().getValue());
+			} else {
+				observers.add(observers_tree.pollFirstEntry().getValue());
+			}
+		}
+		return observers;
+	}
+	
+	// 2. material_filter + entity_filter + limit
+	public static Collection<LivingEntity> getObservers(
+			LivingEntity observed, Double max_dist, Double cos_detect_angle, 
+			Predicate<Entity> entity_filter,
+			Predicate<Material> material_filter, Integer limit) {
+		return getObservers(observed, max_dist, cos_detect_angle, 
+				entity_filter, material_filter, limit, false);
+	}
+	
+	// 3. material_filter + entity_filter
+	public static Collection<LivingEntity> getObservers(
+			LivingEntity observed, Double max_dist, Double cos_detect_angle, 
+			Predicate<Entity> entity_filter,
+			Predicate<Material> material_filter) {
+		return getObservers(observed, max_dist, 
+				cos_detect_angle, entity_filter, material_filter, -1, false);
+	}
+	
+	// 4.
+	public static Collection<LivingEntity> getObservers(
+			LivingEntity observed, Double max_dist, Double cos_detect_angle) {
+		return getObservers(observed, max_dist, 
+				cos_detect_angle, null, null, -1, false);
 	}
 	
 }
