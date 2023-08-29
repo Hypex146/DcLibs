@@ -12,7 +12,8 @@ public abstract class DcOtherUtilities {
 	
 	// Predicate<Entity> createPredicate
 	// 1. include
-	public static Predicate<Entity> createPredicate(List<EntityType> filter, Boolean contain) {
+	public static Predicate<Entity> createPredicate(
+			List<EntityType> filter, Boolean contain) {
 		Predicate<Entity> predicate;
 		if (filter == null) {
 			predicate = new Predicate<Entity>() {
@@ -37,7 +38,8 @@ public abstract class DcOtherUtilities {
 	}
 	
 	// 2.
-	public static Predicate<Entity> createPredicate(List<EntityType> filter) {
+	public static Predicate<Entity> createPredicate(
+			List<EntityType> filter) {
 		return createPredicate(filter, true);
 	}
 

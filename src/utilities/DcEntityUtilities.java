@@ -18,8 +18,10 @@ public abstract class DcEntityUtilities {
 	// Collection<Entity> getNearbyEntities
 	// 1. xyz + limit with direction
 	public static Collection<Entity> getNearbyEntities(Location loc, 
-			Double x, Double y, Double z, Predicate<Entity> filter, Integer limit, Boolean reverse) {
-		Collection<Entity> entities = loc.getWorld().getNearbyEntities(loc, x, y, z, filter);
+			Double x, Double y, Double z, Predicate<Entity> filter, 
+			Integer limit, Boolean reverse) {
+		Collection<Entity> entities = loc.getWorld().getNearbyEntities(
+				loc, x, y, z, filter);
 		TreeMap<Double, Entity> entities_tree = new TreeMap<Double, Entity>();
 		for (Entity entity : entities) {
 			entities_tree.put(entity.getLocation().distance(loc), entity);
@@ -40,7 +42,8 @@ public abstract class DcEntityUtilities {
 	
 	// 2. xyz + limit
 	public static Collection<Entity> getNearbyEntities(Location loc, 
-			Double x, Double y, Double z, Predicate<Entity> filter, Integer limit) {
+			Double x, Double y, Double z, Predicate<Entity> filter, 
+			Integer limit) {
 		return getNearbyEntities(loc, x, y, z, filter, limit, false);
 	}
 	
@@ -60,22 +63,28 @@ public abstract class DcEntityUtilities {
 	
 	// 5. sphere + limit with direction
 	public static Collection<Entity> getNearbyEntities(Location loc, 
-			Double dist, Predicate<Entity> filter, Integer limit, Boolean reverse) {
-		return getNearbyEntities(loc, dist, dist, dist, filter, limit, reverse);
+			Double dist, Predicate<Entity> filter, 
+			Integer limit, Boolean reverse) {
+		return getNearbyEntities(loc, dist, dist, dist, 
+				filter, limit, reverse);
 	}
 	
 	
 	// Boolean inSight
 	// 1. filter
-	public static Boolean inSight(LivingEntity observer, LivingEntity observed, 
-			Double max_dist, double cos_detect_angle, Predicate<Material> filter) {
+	public static Boolean inSight(LivingEntity observer, 
+			LivingEntity observed, 
+			Double max_dist, double cos_detect_angle, 
+			Predicate<Material> filter) {
 		if (observer.equals(observed)) {
 			return false;
 			}
 	    Location observer_eye = observer.getEyeLocation();
 	    Vector observer_observed = 
-	    		observed.getEyeLocation().toVector().subtract(observer_eye.toVector());
-	    double cos_angle = observer_observed.normalize().dot(observer_eye.getDirection());
+	    		observed.getEyeLocation().toVector().subtract(
+	    				observer_eye.toVector());
+	    double cos_angle = observer_observed.normalize().dot(
+	    		observer_eye.getDirection());
 	    if (DcBlockUtilities.hasBlock(new BlockIterator(observer), 
 	    		observer_eye, max_dist, filter)) {
 	    	return false;
@@ -84,8 +93,9 @@ public abstract class DcEntityUtilities {
 	}
 	
 	// 2.
-	public static Boolean inSight(LivingEntity observer, LivingEntity observed, 
-			Double max_dist, double cos_detect_angle) {
+	public static Boolean inSight(LivingEntity observer, 
+			LivingEntity observed, Double max_dist, 
+			double cos_detect_angle) {
 		return inSight(observer, observed, max_dist, cos_detect_angle, null);
 	}
 	

@@ -316,7 +316,8 @@ public class DcConfig {
 	
 	
 	// OfflinePlayer
-	public OfflinePlayer getOfflinePlayer(String field, OfflinePlayer default_value) {
+	public OfflinePlayer getOfflinePlayer(
+			String field, OfflinePlayer default_value) {
 		if (!config_.isOfflinePlayer(field)) {
 			config_.set(field, default_value);
 		}
