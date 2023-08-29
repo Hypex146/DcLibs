@@ -9,8 +9,9 @@ import org.bukkit.entity.EntityType;
 
 public abstract class DcOtherUtilities {
 	
+	
 	// Predicate<Entity> createPredicate
-	// include
+	// 1. include
 	public static Predicate<Entity> createPredicate(List<EntityType> filter, Boolean contain) {
 		Predicate<Entity> predicate;
 		if (filter == null) {
@@ -35,7 +36,7 @@ public abstract class DcOtherUtilities {
 		return predicate;
 	}
 	
-	//
+	// 2.
 	public static Predicate<Entity> createPredicate(List<EntityType> filter) {
 		return createPredicate(filter, true);
 	}

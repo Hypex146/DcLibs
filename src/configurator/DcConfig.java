@@ -17,16 +17,22 @@ import logger.DcLogger;
 
 
 public class DcConfig {
+	
+	// objects
 	private File config_file_ = null;
 	private YamlConfiguration config_ = null;
 	@SuppressWarnings("unused")
 	private DcLogger logger_ = null;  // TODO
 	
+	
+	// DcConfig
 	public DcConfig(String path_to_config, DcLogger logger) {
 		logger_ = logger;
 		config_ = loadConfig(path_to_config);
 	}
 	
+	
+	// YamlConfiguration loadConfig
 	private YamlConfiguration loadConfig(String path_to_config) {
 		File config_file_ = new File(path_to_config);
 		File folder = config_file_.getParentFile();
@@ -66,10 +72,14 @@ public class DcConfig {
 		return config;
 	}
 	
+	
+	// YamlConfiguration getConfig
 	public YamlConfiguration getConfig() {
 		return config_;
 	}
 	
+	
+	// void saveConfig
 	public void saveConfig() {
 		try {
 			config_.save(config_file_);
@@ -82,6 +92,8 @@ public class DcConfig {
 		}
 	}
 	
+	
+	// void reloadConfig
 	public void reloadConfig() {
 		try {
 			config_.load(config_file_);
@@ -99,6 +111,7 @@ public class DcConfig {
 			return;
 		}
 	}
+	
 	
 	// Boolean
 	public Boolean getBoolean(String field, Boolean default_value) {
@@ -124,6 +137,7 @@ public class DcConfig {
 		config_.set(field, default_values);
 	}
 	
+	
 	// Double
 	public Double getDouble(String field, Double default_value) {
 		if (!config_.isDouble(field)) {
@@ -147,6 +161,7 @@ public class DcConfig {
 	public void setDoubleList(String field, List<Double> default_values) {
 		config_.set(field, default_values);
 	}
+	
 	
 	// Long
 	public Long getLong(String field, Long default_value) {
@@ -172,6 +187,7 @@ public class DcConfig {
 		config_.set(field, default_values);
 	}
 	
+	
 	// Integer
 	public Integer getInteger(String field, Integer default_value) {
 		if (!config_.isInt(field)) {
@@ -195,6 +211,7 @@ public class DcConfig {
 	public void setIntegerList(String field, List<Integer> default_values) {
 		config_.set(field, default_values);
 	}
+	
 	
 	// Float
 	public Float getFloat(String field, Float default_value) {
@@ -220,6 +237,7 @@ public class DcConfig {
 		config_.set(field, default_values);
 	}
 	
+	
 	// String
 	public String getString(String field, String default_value) {
 		if (!config_.isString(field)) {
@@ -244,6 +262,7 @@ public class DcConfig {
 		config_.set(field, default_values);
 	}
 	
+	
 	// Vector
 	public Vector getVector(String field, Vector default_value) {
 		if (!config_.isVector(field)) {
@@ -255,6 +274,7 @@ public class DcConfig {
 	public void setVector(String field, Vector value) {
 		config_.set(field, value);
 	}
+	
 	
 	// Color
 	public Color getColor(String field, Color default_value) {
@@ -268,6 +288,7 @@ public class DcConfig {
 		config_.set(field, value);
 	}
 	
+	
 	// ItemStack
 	public ItemStack getItemStack(String field, ItemStack default_value) {
 		if (!config_.isItemStack(field)) {
@@ -279,6 +300,7 @@ public class DcConfig {
 	public void setItemStack(String field, ItemStack value) {
 		config_.set(field, value);
 	}
+	
 	
 	// Location
 	public Location getLocation(String field, Location default_value) {
@@ -292,6 +314,7 @@ public class DcConfig {
 		config_.set(field, value);
 	}
 	
+	
 	// OfflinePlayer
 	public OfflinePlayer getOfflinePlayer(String field, OfflinePlayer default_value) {
 		if (!config_.isOfflinePlayer(field)) {
@@ -303,6 +326,7 @@ public class DcConfig {
 	public void setOfflinePlayer(String field, OfflinePlayer value) {
 		config_.set(field, value);
 	}
+	
 	
 	// Short
 	public Short getShort(String field, Short default_value) {

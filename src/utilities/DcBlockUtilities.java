@@ -13,8 +13,9 @@ import org.bukkit.util.BlockIterator;
 
 public abstract class DcBlockUtilities {
 	
+	
 	// Collection<Block> getBlocks
-	// limit + filter
+	// 1. limit + filter
 	public static Collection<Block> getBlocks(BlockIterator iterator, 
 			Location start_loc, Double max_dist, Integer limit, 
 			Predicate<Material> filter) {
@@ -40,19 +41,19 @@ public abstract class DcBlockUtilities {
 		return blocks;
 	}
 	
-	// limit
+	// 2. limit
 	public static Collection<Block> getBlocks(BlockIterator iterator, 
 			Location start_loc, Double max_dist, Integer limit) {
 		return getBlocks(iterator, start_loc, max_dist, limit, null);
 	}
 	
-	// filter
+	// 3. filter
 	public static Collection<Block> getBlocks(BlockIterator iterator, 
 			Location start_loc, Double max_dist, Predicate<Material> filter) {
 		return getBlocks(iterator, start_loc, max_dist, -1, filter);
 	}
 	
-	//
+	// 4.
 	public static Collection<Block> getBlocks(BlockIterator iterator, 
 			Location start_loc, Double max_dist) {
 		return getBlocks(iterator, start_loc, max_dist, -1, null);
@@ -60,7 +61,7 @@ public abstract class DcBlockUtilities {
 	
 	
 	// Block getBlock
-	// filter
+	// 1. filter
 	public static Block getBlock(BlockIterator iterator, 
 			Location start_loc, Double max_dist, 
 			Predicate<Material> filter) {
@@ -72,7 +73,7 @@ public abstract class DcBlockUtilities {
 		return iterator_block.next();
 	}
 	
-	//
+	// 2.
 	public static Block getBlock(BlockIterator iterator, 
 			Location start_loc, Double max_dist) {
 		Collection<Block> blocks = getBlocks(iterator, start_loc, max_dist, 1, null);
@@ -85,7 +86,7 @@ public abstract class DcBlockUtilities {
 	
 	
 	// Boolean hasBlock
-	// filter
+	// 1. filter
 	public static Boolean hasBlock(BlockIterator iterator, 
 			Location start_loc, Double max_dist, 
 			Predicate<Material> filter) {
@@ -97,7 +98,7 @@ public abstract class DcBlockUtilities {
 		}
 	}
 	
-	//
+	// 2.
 	public static Boolean hasBlock(BlockIterator iterator, 
 			Location start_loc, Double max_dist) {
 		Collection<Block> blocks = getBlocks(iterator, start_loc, max_dist, 1, null);
