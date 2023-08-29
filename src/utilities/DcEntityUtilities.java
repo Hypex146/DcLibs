@@ -5,7 +5,11 @@ import java.util.TreeMap;
 import java.util.function.Predicate;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.util.BlockIterator;
+import org.bukkit.util.Vector;
 
 
 public abstract class DcEntityUtilities {
@@ -43,7 +47,8 @@ public abstract class DcEntityUtilities {
 	// 3. sphere
 	public static Collection<Entity> getNearbyEntities(Location loc, 
 			Double dist, Predicate<Entity> filter) {
-		Collection<Entity> entities = loc.getWorld().getNearbyEntities(loc, dist, dist, dist, filter);
+		Collection<Entity> entities = loc.getWorld().getNearbyEntities(
+				loc, dist, dist, dist, filter);
 		return entities;
 	}
 	
@@ -57,6 +62,31 @@ public abstract class DcEntityUtilities {
 	public static Collection<Entity> getNearbyEntities(Location loc, 
 			Double dist, Predicate<Entity> filter, Integer limit, Boolean reverse) {
 		return getNearbyEntities(loc, dist, dist, dist, filter, limit, reverse);
+	}
+	
+	
+	// Boolean inSight
+	// 1. filter
+	public static Boolean inSight(LivingEntity observer, LivingEntity observed, 
+			Double max_dist, double cos_detect_angle, Predicate<Material> filter) {
+		if (observer.equals(observed)) {
+			return false;
+			}
+	    Location observer_eye = observer.getEyeLocation();
+	    Vector observer_observed = 
+	    		observed.getEyeLocation().toVector().subtract(observer_eye.toVector());
+	    double cos_angle = observer_observed.normalize().dot(observer_eye.getDirection());
+	    if (DcBlockUtilities.hasBlock(new BlockIterator(observer), 
+	    		observer_eye, max_dist, filter)) {
+	    	return false;
+	    }
+	    return cos_angle >= cos_detect_angle;
+	}
+	
+	// 2.
+	public static Boolean inSight(LivingEntity observer, LivingEntity observed, 
+			Double max_dist, double cos_detect_angle) {
+		return inSight(observer, observed, max_dist, cos_detect_angle, null);
 	}
 	
 }
