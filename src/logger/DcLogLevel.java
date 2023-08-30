@@ -3,13 +3,35 @@ package logger;
 
 public enum DcLogLevel {
 	
-	// Enumeration elements
-	MINIMAL,  // Only warns and errors
-	STANDART,  // Warns, error and important information
-	DEBUG;  // Redundant information for debug plugin
+	/**
+	 * <p>
+	 * Only warns and errors
+	 * </p>
+	 */
+	MINIMAL,
+	
+	/**
+	 * <p>
+	 * Warns, error and important information
+	 * </p>
+	 */
+	STANDART,
+	
+	/**
+	 * <p>
+	 * Redundant information for debug plugin
+	 * </p>
+	 */
+	DEBUG;
 
 	
-	// DcLogLevel toEnum
+	/**
+	 * <p>
+	 * Translating a string into an enumeration, if possible
+	 * </p>
+	 * @param string - The string to be translated into an enumeration
+	 * @return Enumeration or null
+	 */
 	public static DcLogLevel toEnum(String string) {
 		switch (string) {
 			case "MINIMAL":
