@@ -23,6 +23,9 @@ public abstract class DcEntityUtilities {
 			Integer limit, Boolean reverse) {
 		Collection<Entity> entities = loc.getWorld().getNearbyEntities(
 				loc, x, y, z, filter);
+		if ( limit < 0 ) {
+			return entities;
+		}
 		TreeMap<Double, Entity> entities_tree = new TreeMap<Double, Entity>();
 		for (Entity entity : entities) {
 			entities_tree.put(entity.getLocation().distance(loc), entity);
@@ -51,9 +54,7 @@ public abstract class DcEntityUtilities {
 	// 3. sphere
 	public static Collection<Entity> getNearbyEntities(Location loc, 
 			Double dist, Predicate<Entity> filter) {
-		Collection<Entity> entities = loc.getWorld().getNearbyEntities(
-				loc, dist, dist, dist, filter);
-		return entities;
+		return getNearbyEntities(loc, dist, dist, dist, filter, -1, false);
 	}
 	
 	// 4. sphere + limit

@@ -77,13 +77,7 @@ public abstract class DcBlockUtilities {
 	// 2.
 	public static Block getBlock(BlockIterator iterator, 
 			Location start_loc, Double max_dist) {
-		Collection<Block> blocks = getBlocks(
-				iterator, start_loc, max_dist,1, null);
-		if (blocks.size() <= 0) {
-			return null;
-		}
-		Iterator<Block> iterator_block = blocks.iterator();
-		return iterator_block.next();
+		return getBlock(iterator, start_loc, max_dist, null);
 	}
 	
 	
@@ -104,13 +98,7 @@ public abstract class DcBlockUtilities {
 	// 2.
 	public static Boolean hasBlock(BlockIterator iterator, 
 			Location start_loc, Double max_dist) {
-		Collection<Block> blocks = getBlocks(
-				iterator, start_loc, max_dist, 1, null);
-		if (blocks.size() > 0) {
-			return true;
-		} else {
-			return false;
-		}
+		return hasBlock(iterator, start_loc, max_dist, null);
 	}
 	
 }
