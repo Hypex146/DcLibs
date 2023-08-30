@@ -28,7 +28,7 @@ public abstract class DcEntityUtilities {
 			entities_tree.put(entity.getLocation().distance(loc), entity);
 		}
 		entities.clear();
-		for (int i = 0; i < entities_tree.size(); i++) {
+		for (Integer i = 0; i < entities_tree.size(); i++) {
 			if (i >= limit) {
 				break;
 			}
@@ -75,7 +75,7 @@ public abstract class DcEntityUtilities {
 	// 1. filter
 	public static Boolean inSight(LivingEntity observer, 
 			LivingEntity observed, 
-			Double max_dist, double cos_detect_angle, 
+			Double max_dist, Double cos_detect_angle, 
 			Predicate<Material> filter) {
 		if (observer.equals(observed)) {
 			return false;
@@ -84,7 +84,7 @@ public abstract class DcEntityUtilities {
 	    Vector observer_observed = 
 	    		observed.getEyeLocation().toVector().subtract(
 	    				observer_eye.toVector());
-	    double cos_angle = observer_observed.normalize().dot(
+	    Double cos_angle = observer_observed.normalize().dot(
 	    		observer_eye.getDirection());
 	    if (DcBlockUtilities.hasBlock(new BlockIterator(observer), 
 	    		observer_eye, max_dist, filter)) {
@@ -96,7 +96,7 @@ public abstract class DcEntityUtilities {
 	// 2.
 	public static Boolean inSight(LivingEntity observer, 
 			LivingEntity observed, Double max_dist, 
-			double cos_detect_angle) {
+			Double cos_detect_angle) {
 		return inSight(observer, observed, max_dist, cos_detect_angle, null);
 	}
 	
@@ -104,9 +104,9 @@ public abstract class DcEntityUtilities {
 	// Collection<LivingEntity> getInSight
 	// 1. material_filter + entity_filter + limit + reverse
 	public static Collection<LivingEntity> getInSight(LivingEntity observer, 
-			double max_dist, double cos_detect_angle, 
+			Double max_dist, Double cos_detect_angle, 
 			Predicate<Entity> entity_filter, 
-			Predicate<Material> material_filter, int limit, 
+			Predicate<Material> material_filter, Integer limit, 
 			Boolean reverse) {
 		TreeMap<Double, LivingEntity> observered_tree = 
 				new TreeMap<Double, LivingEntity>();
@@ -126,7 +126,7 @@ public abstract class DcEntityUtilities {
 			return observered_tree.values();
 		}
 		Collection<LivingEntity> observered = new ArrayList<LivingEntity>();
-		for (int i = 0; i < observered_tree.size(); i++) {
+		for (Integer i = 0; i < observered_tree.size(); i++) {
 			if (i >= limit) {
 				break;
 			}
@@ -141,16 +141,16 @@ public abstract class DcEntityUtilities {
 	
 	// 2. material_filter + entity_filter + limit
 	public static Collection<LivingEntity> getInSight(LivingEntity observer, 
-			double max_dist, double cos_detect_angle, 
+			Double max_dist, Double cos_detect_angle, 
 			Predicate<Entity> entity_filter, 
-			Predicate<Material> material_filter, int limit) {
+			Predicate<Material> material_filter, Integer limit) {
 		return getInSight(observer, max_dist, cos_detect_angle, entity_filter, 
 				material_filter, limit, false);
 	}
 	
 	// 3. material_filter + entity_filter
 	public static Collection<LivingEntity> getInSight(LivingEntity observer, 
-			double max_dist, double cos_detect_angle, 
+			Double max_dist, Double cos_detect_angle, 
 			Predicate<Entity> entity_filter, 
 			Predicate<Material> material_filter) {
 		return getInSight(observer, max_dist, cos_detect_angle, entity_filter, 
@@ -159,7 +159,7 @@ public abstract class DcEntityUtilities {
 	
 	// 4.
 	public static Collection<LivingEntity> getInSight(LivingEntity observer, 
-			double max_dist, double cos_detect_angle) {
+			Double max_dist, Double cos_detect_angle) {
 		return getInSight(
 				observer, max_dist, cos_detect_angle, null, null, -1, false);
 	}
@@ -189,7 +189,7 @@ public abstract class DcEntityUtilities {
 			return observers_tree.values();
 		}
 		Collection<LivingEntity> observers = new ArrayList<LivingEntity>();
-		for (int i = 0; i < observers_tree.size(); i++) {
+		for (Integer i = 0; i < observers_tree.size(); i++) {
 			if (i >= limit) {
 				break;
 			}
