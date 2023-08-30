@@ -1,6 +1,6 @@
 package utilities;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.function.Predicate;
 
 import org.bukkit.entity.Entity;
@@ -10,10 +10,19 @@ import org.bukkit.entity.EntityType;
 public abstract class DcOtherUtilities {
 	
 	
-	// Predicate<Entity> createPredicate
-	// 1. include
+	/**
+	 * <p>
+	 * createPredicate
+	 * </p><p>
+	 * Note: 1. include
+	 * </p>
+	 * @param filter - Objects to compare
+	 * @param contain - Selecting objects that are in the list?
+	 * @return Predicate-filter
+	 * @since 0.0.1
+	 */
 	public static Predicate<Entity> createPredicate(
-			List<EntityType> filter, Boolean contain) {
+			Collection<EntityType> filter, Boolean contain) {
 		Predicate<Entity> predicate;
 		if (filter == null) {
 			predicate = new Predicate<Entity>() {
@@ -39,7 +48,7 @@ public abstract class DcOtherUtilities {
 	
 	// 2.
 	public static Predicate<Entity> createPredicate(
-			List<EntityType> filter) {
+			Collection<EntityType> filter) {
 		return createPredicate(filter, true);
 	}
 
