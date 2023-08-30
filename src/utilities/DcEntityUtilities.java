@@ -101,6 +101,70 @@ public abstract class DcEntityUtilities {
 	}
 	
 	
+	// Collection<LivingEntity> getInSight
+	// 1. material_filter + entity_filter + limit + reverse
+	public static Collection<LivingEntity> getInSight(LivingEntity observer, 
+			double max_dist, double cos_detect_angle, 
+			Predicate<Entity> entity_filter, 
+			Predicate<Material> material_filter, int limit, 
+			Boolean reverse) {
+		TreeMap<Double, LivingEntity> observered_tree = 
+				new TreeMap<Double, LivingEntity>();
+		for (Entity nearby_entity : getNearbyEntities(
+				observer.getLocation(), max_dist, entity_filter)) {
+			if ( !(nearby_entity instanceof LivingEntity) ) { 
+				continue; 
+			}
+			if ( inSight(observer, (LivingEntity) nearby_entity, 
+					max_dist, cos_detect_angle, material_filter) ) {
+				observered_tree.put(observer.getLocation().distance(
+						nearby_entity.getLocation()), 
+						(LivingEntity) nearby_entity);
+			}
+		}
+		if (limit < 0) {
+			return observered_tree.values();
+		}
+		Collection<LivingEntity> observered = new ArrayList<LivingEntity>();
+		for (int i = 0; i < observered_tree.size(); i++) {
+			if (i >= limit) {
+				break;
+			}
+			if (reverse) {
+				observered.add(observered_tree.pollLastEntry().getValue());
+			} else {
+				observered.add(observered_tree.pollFirstEntry().getValue());
+			}
+		}
+		return observered;
+	}
+	
+	// 2. material_filter + entity_filter + limit
+	public static Collection<LivingEntity> getInSight(LivingEntity observer, 
+			double max_dist, double cos_detect_angle, 
+			Predicate<Entity> entity_filter, 
+			Predicate<Material> material_filter, int limit) {
+		return getInSight(observer, max_dist, cos_detect_angle, entity_filter, 
+				material_filter, limit, false);
+	}
+	
+	// 3. material_filter + entity_filter
+	public static Collection<LivingEntity> getInSight(LivingEntity observer, 
+			double max_dist, double cos_detect_angle, 
+			Predicate<Entity> entity_filter, 
+			Predicate<Material> material_filter) {
+		return getInSight(observer, max_dist, cos_detect_angle, entity_filter, 
+				material_filter, -1, false);
+	}
+	
+	// 4.
+	public static Collection<LivingEntity> getInSight(LivingEntity observer, 
+			double max_dist, double cos_detect_angle) {
+		return getInSight(
+				observer, max_dist, cos_detect_angle, null, null, -1, false);
+	}
+	
+	
 	// Collection<LivingEntity> getObservers
 	// 1. material_filter + entity_filter + limit + reverse
 	public static Collection<LivingEntity> getObservers(
