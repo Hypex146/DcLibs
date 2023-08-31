@@ -16,8 +16,24 @@ import org.bukkit.util.Vector;
 public abstract class DcEntityUtilities {
 	
 	
-	// Collection<Entity> getNearbyEntities
-	// 1. xyz + limit with direction
+	/**
+	 * <p>
+	 * Get a list of entities within a bounding box 
+	 * centered around a Location
+	 * </p><p>
+	 * Note: 1. xyz, limit, direction
+	 * </p>
+	 * @param loc - The center of the bounding box
+	 * @param x - The 1/2 size of the box along x axis
+	 * @param y - The 1/2 size of the box along y axis
+	 * @param z - The 1/2 size of the box along z axis
+	 * @param filter - Only entities that fulfill this predicate 
+	 * are considered, or null to consider all entities
+	 * @param limit - Maximum number of selected entities
+	 * @param reverse - Select the most distant entities first
+	 * @return A collection of selected entities
+	 * @since 0.0.1
+	 */
 	public static Collection<Entity> getNearbyEntities(Location loc, 
 			Double x, Double y, Double z, Predicate<Entity> filter, 
 			Integer limit, Boolean reverse) {
@@ -44,26 +60,50 @@ public abstract class DcEntityUtilities {
 		return entities;
 	}
 	
-	// 2. xyz + limit
+	/**
+	 * <p>
+	 * Note: 2. xyz, limit
+	 * </p>
+	 * @see #getNearbyEntities(Location, Double, 
+	 * Double, Double, Predicate, Integer, Boolean)
+	 */
 	public static Collection<Entity> getNearbyEntities(Location loc, 
 			Double x, Double y, Double z, Predicate<Entity> filter, 
 			Integer limit) {
 		return getNearbyEntities(loc, x, y, z, filter, limit, false);
 	}
 	
-	// 3. sphere
+	/**
+	 * <p>
+	 * Note: 3. sphere
+	 * </p>
+	 * @see #getNearbyEntities(Location, Double, 
+	 * Double, Double, Predicate, Integer, Boolean)
+	 */
 	public static Collection<Entity> getNearbyEntities(Location loc, 
 			Double dist, Predicate<Entity> filter) {
 		return getNearbyEntities(loc, dist, dist, dist, filter, -1, false);
 	}
 	
-	// 4. sphere + limit
+	/**
+	 * <p>
+	 * Note: 4. sphere, limit
+	 * </p>
+	 * @see #getNearbyEntities(Location, Double, 
+	 * Double, Double, Predicate, Integer, Boolean)
+	 */
 	public static Collection<Entity> getNearbyEntities(Location loc, 
 			Double dist, Predicate<Entity> filter, Integer limit) {
 		return getNearbyEntities(loc, dist, dist, dist, filter, limit, false);
 	}
 	
-	// 5. sphere + limit with direction
+	/**
+	 * <p>
+	 * Note: 5. sphere, limit, direction
+	 * </p>
+	 * @see #getNearbyEntities(Location, Double, 
+	 * Double, Double, Predicate, Integer, Boolean)
+	 */
 	public static Collection<Entity> getNearbyEntities(Location loc, 
 			Double dist, Predicate<Entity> filter, 
 			Integer limit, Boolean reverse) {
@@ -72,8 +112,22 @@ public abstract class DcEntityUtilities {
 	}
 	
 	
-	// Boolean inSight
-	// 1. filter
+	/**
+	 * <p>
+	 * Find out if one entity is in the field of view of another entity
+	 * </p><p>
+	 * Note: 1. filter
+	 * </p>
+	 * @param observer - The entity that observes
+	 * @param observed - The entity being watched
+	 * @param max_dist - Maximum observation distance
+	 * @param cos_detect_angle - The value of the cosine 
+	 * of the observer's field of view angle
+	 * @param filter - A predicate that selects materials 
+	 * through which the observer cannot see
+	 * @return Does the observer see the observed?
+	 * @since 0.0.1
+	 */
 	public static Boolean inSight(LivingEntity observer, 
 			LivingEntity observed, 
 			Double max_dist, Double cos_detect_angle, 
@@ -94,7 +148,12 @@ public abstract class DcEntityUtilities {
 	    return cos_angle >= cos_detect_angle;
 	}
 	
-	// 2.
+	/**
+	 * <p>
+	 * Note: 2.
+	 * </p>
+	 * @see #inSight(LivingEntity, LivingEntity, Double, Double, Predicate)
+	 */
 	public static Boolean inSight(LivingEntity observer, 
 			LivingEntity observed, Double max_dist, 
 			Double cos_detect_angle) {
@@ -102,8 +161,27 @@ public abstract class DcEntityUtilities {
 	}
 	
 	
-	// Collection<LivingEntity> getInSight
-	// 1. material_filter + entity_filter + limit + reverse
+	/**
+	 * <p>
+	 * Get entities that are in the field of view of the observing entity
+	 * </p><p>
+	 * Note: 1. material_filter, entity_filter, limit, reverse
+	 * </p>
+	 * @param observer - An observer entity in whose field of 
+	 * view other entities are being searched
+	 * @param max_dist - Maximum observation distance
+	 * @param cos_detect_angle - The value of the cosine 
+	 * of the observer's field of view angle
+	 * @param entity_filter - A predicate that determines which 
+	 * entities should be considered, or null to consider all entities
+	 * @param material_filter - A predicate that selects materials 
+	 * through which the observer cannot see
+	 * @param limit - Maximum number of selected entities
+	 * @param reverse - Select the most distant entities first
+	 * @return A collection of entities located in a given field of 
+	 * view of the observer
+	 * @since 0.0.1
+	 */
 	public static Collection<LivingEntity> getInSight(LivingEntity observer, 
 			Double max_dist, Double cos_detect_angle, 
 			Predicate<Entity> entity_filter, 
@@ -140,7 +218,13 @@ public abstract class DcEntityUtilities {
 		return observered;
 	}
 	
-	// 2. material_filter + entity_filter + limit
+	/**
+	 * <p>
+	 * Note: 2. material_filter, entity_filter, limit
+	 * </p>
+	 * @see #getInSight(LivingEntity, Double, Double, 
+	 * Predicate, Predicate, Integer, Boolean)
+	 */
 	public static Collection<LivingEntity> getInSight(LivingEntity observer, 
 			Double max_dist, Double cos_detect_angle, 
 			Predicate<Entity> entity_filter, 
@@ -149,7 +233,13 @@ public abstract class DcEntityUtilities {
 				material_filter, limit, false);
 	}
 	
-	// 3. material_filter + entity_filter
+	/**
+	 * <p>
+	 * Note: 3. material_filter, entity_filter
+	 * </p>
+	 * @see #getInSight(LivingEntity, Double, Double, 
+	 * Predicate, Predicate, Integer, Boolean)
+	 */
 	public static Collection<LivingEntity> getInSight(LivingEntity observer, 
 			Double max_dist, Double cos_detect_angle, 
 			Predicate<Entity> entity_filter, 
@@ -158,7 +248,13 @@ public abstract class DcEntityUtilities {
 				material_filter, -1, false);
 	}
 	
-	// 4.
+	/**
+	 * <p>
+	 * Note: 4.
+	 * </p>
+	 * @see #getInSight(LivingEntity, Double, Double, 
+	 * Predicate, Predicate, Integer, Boolean)
+	 */
 	public static Collection<LivingEntity> getInSight(LivingEntity observer, 
 			Double max_dist, Double cos_detect_angle) {
 		return getInSight(
@@ -166,8 +262,25 @@ public abstract class DcEntityUtilities {
 	}
 	
 	
-	// Collection<LivingEntity> getObservers
-	// 1. material_filter + entity_filter + limit + reverse
+	/**
+	 * <p>
+	 * Get entities that are watching another entity
+	 * </p><p>
+	 * Note: 1. material_filter, entity_filter, limit, reverse
+	 * <p>
+	 * @param observed - The entity that is the object of observation
+	 * @param max_dist - Maximum observation distance
+	 * @param cos_detect_angle - The value of the cosine 
+	 * of the observer's field of view angle
+	 * @param entity_filter -  A predicate that determines which 
+	 * entities should be considered, or null to consider all entities
+	 * @param material_filter - A predicate that selects materials 
+	 * through which the observer cannot see
+	 * @param limit - Maximum number of selected entities
+	 * @param reverse - Select the most distant entities first
+	 * @return A collection of entities that observes the passed entity
+	 * @since 0.0.1
+	 */
 	public static Collection<LivingEntity> getObservers(
 			LivingEntity observed, Double max_dist, Double cos_detect_angle, 
 			Predicate<Entity> entity_filter, 
@@ -203,7 +316,13 @@ public abstract class DcEntityUtilities {
 		return observers;
 	}
 	
-	// 2. material_filter + entity_filter + limit
+	/**
+	 * <p>
+	 * Note: 2. material_filter, entity_filter, limit
+	 * </p>
+	 * @see #getObservers(LivingEntity, Double, Double, Predicate, 
+	 * Predicate, Integer, Boolean)
+	 */
 	public static Collection<LivingEntity> getObservers(
 			LivingEntity observed, Double max_dist, Double cos_detect_angle, 
 			Predicate<Entity> entity_filter,
@@ -212,7 +331,13 @@ public abstract class DcEntityUtilities {
 				entity_filter, material_filter, limit, false);
 	}
 	
-	// 3. material_filter + entity_filter
+	/**
+	 * <p>
+	 * Note: 3. material_filter, entity_filter
+	 * </p>
+	 * @see #getObservers(LivingEntity, Double, Double, Predicate, 
+	 * Predicate, Integer, Boolean)
+	 */
 	public static Collection<LivingEntity> getObservers(
 			LivingEntity observed, Double max_dist, Double cos_detect_angle, 
 			Predicate<Entity> entity_filter,
@@ -221,7 +346,13 @@ public abstract class DcEntityUtilities {
 				cos_detect_angle, entity_filter, material_filter, -1, false);
 	}
 	
-	// 4.
+	/**
+	 * <p>
+	 * Note: 4.
+	 * </p>
+	 * @see #getObservers(LivingEntity, Double, Double, Predicate, 
+	 * Predicate, Integer, Boolean)
+	 */
 	public static Collection<LivingEntity> getObservers(
 			LivingEntity observed, Double max_dist, Double cos_detect_angle) {
 		return getObservers(observed, max_dist, 
