@@ -18,7 +18,7 @@ public abstract class DcOtherUtilities {
 	 * </p>
 	 * @param filter - Objects to compare
 	 * @param contain - Selecting objects that are in the list?
-	 * @return Predicate-filter
+	 * @return Predicate - filter
 	 * @since 0.0.1
 	 */
 	public static Predicate<Entity> createPredicate(
@@ -46,7 +46,12 @@ public abstract class DcOtherUtilities {
 		return predicate;
 	}
 	
-	// 2.
+	/**
+	 * <p>
+	 * Note: 2.
+	 * </p>
+	 * @see #createPredicate(Collection, Boolean)
+	 */
 	public static Predicate<Entity> createPredicate(
 			Collection<EntityType> filter) {
 		return createPredicate(filter, true);
